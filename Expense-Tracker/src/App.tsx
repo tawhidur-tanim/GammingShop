@@ -1,8 +1,11 @@
 import { useState } from "react";
 import ExpenseList from "./Components/ExpenseList";
+import ExpsenseFiler from "./Components/ExpenseFilter";
+import Categories from "./Common/ExpenseCategory";
+import ExpenseFormNew from "./Components/ExpenseFormNew";
 
 function App() {
-  const [ExpenseData, setExpenseData] = useState([
+  const [expenseData, setExpenseData] = useState([
     {
       id: 1,
       description: "Coffee at Starbucks",
@@ -47,12 +50,35 @@ function App() {
     },
   ]);
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const visibleExpenses = selectedCategory
+    ? expenseData.filter((x) => x.category === selectedCategory)
+    : expenseData;
+
   return (
     <>
+      <div className="mb-3">
+        <ExpenseFormNew
+          onSubmit={(data) =>
+            setExpenseData([
+              ...expenseData,
+              { ...data, id: expenseData.length + 1 },
+            ])
+          }
+        ></ExpenseFormNew>
+      </div>
+      <div className="mb-3">
+        <ExpsenseFiler
+          categories={Categories}
+          onSelect={(category) => setSelectedCategory(category)}
+        ></ExpsenseFiler>
+      </div>
+
       <ExpenseList
-        expenses={ExpenseData}
+        expenses={visibleExpenses}
         onDelete={(id) => {
-          setExpenseData(ExpenseData.filter((x) => x.id !== id));
+          setExpenseData(expenseData.filter((x) => x.id !== id));
         }}
       ></ExpenseList>
     </>
