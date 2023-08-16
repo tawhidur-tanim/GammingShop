@@ -4,6 +4,8 @@ const ProductList = ({ category }: { category: string }) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const [ProductList, setProductList] = useState<string[]>([]);
 
+  const disconnect = () => console.log("Disconnecting");
+
   useEffect(() => {
     console.log("Fetching products using category - " + category);
     setProductList(["Clothing", "Kitchen"]);
@@ -11,6 +13,8 @@ const ProductList = ({ category }: { category: string }) => {
     if (nameRef.current) {
       nameRef.current.value = category;
     }
+
+    return () => disconnect();
   }, [category]);
 
   return (
