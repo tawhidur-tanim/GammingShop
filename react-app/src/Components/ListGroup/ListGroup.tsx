@@ -6,8 +6,8 @@ interface props {
 }
 
 function ListGroup({ items, heading, onClick }: props) {
-  const listOnClick = (index: number) => setSelectedIndex(index);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const listOnClick = (index: number) => setSelectedIndex(index);
 
   return (
     <>
