@@ -9,8 +9,8 @@ interface FetchGameResponse<T> {
 
 const useData = <T>(
   endpoint: string,
-  requestConfig: AxiosRequestConfig,
-  deps: any[]
+  requestConfig?: AxiosRequestConfig,
+  deps?: any[]
 ) => {
   const [data, setData] = useState<T[]>([]);
   const [error, seterror] = useState("");
